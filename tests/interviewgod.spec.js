@@ -9,7 +9,7 @@ test.describe('InterviewGod AI Automation Suite', () => {
 
 
         const longEmail = 'a'.repeat(1001) + '@test.com';
-        await page.fill('input[type="email"]', longEmail);
+        await page.locator('#base-input').pressSequentially(longEmail, { delay: 10 });
         await page.click('button:has-text("Continue")');
 
 
@@ -21,7 +21,7 @@ test.describe('InterviewGod AI Automation Suite', () => {
 
         await page.goto('/login');
         const email = 'sainikithap@gmail.com';
-        await page.fill('input[name="email"]', email);
+        await page.locator('#base-input').pressSequentially(email, { delay: 10 });
         await page.click('button:has-text("Continue")');
 
 
@@ -48,6 +48,17 @@ test.describe('InterviewGod AI Automation Suite', () => {
         await page.click('button:has-text("Select Type")');
         await page.click('text=Full Time');
 
+        await page.click('button:has-text("Create Job")');
+
+        const jobTypeRequired = page.locator('text=Job Type is required');
+        if (await jobTypeRequired.isVisible()) {
+            console.log('Corner Case: Job Type validation is working.');
+        } else {
+            console.log('Corner Case: Proceeded without Job Type (potential issue).');
+        }
+
+        await page.click('button:has-text("Select Type")');
+        await page.click('text=Full Time');
         await page.click('button:has-text("Create Job")');
 
 
