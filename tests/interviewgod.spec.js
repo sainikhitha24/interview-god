@@ -20,7 +20,7 @@ test.describe('InterviewGod AI Automation Suite', () => {
     test('Login and Scheduling Flow', async ({ page }) => {
 
         await page.goto('/login');
-        const email = 'sainikithap@gmail.com';
+        const email = 'sainikithap@gmail.cpm';
         await page.locator('#base-input').pressSequentially(email, { delay: 10 });
         await page.click('button:has-text("Continue")');
 
@@ -34,8 +34,8 @@ test.describe('InterviewGod AI Automation Suite', () => {
         await expect(page).toHaveURL(/.*dashboard/);
 
 
-        if (await page.isVisible('text=maka')) {
-            await page.click('text=maka');
+        if (await page.isVisible('text=pantham')) {
+            await page.click('text=pantham');
         }
 
 

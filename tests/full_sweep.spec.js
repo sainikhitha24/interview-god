@@ -47,7 +47,7 @@ test.describe('InterviewGod AI - Full Feature Sweep', () => {
     test('Dashboard Sidebar Navigation Check', async ({ page }) => {
 
         await page.goto('/login');
-        await page.fill('input[name="email"]', 'maka.sitaram@gmail.com');
+        await page.locator('#base-input').pressSequentially('sainikithap@gmail.com', { delay: 10 });
         await page.click('button:has-text("Continue")');
 
         console.log('Login triggered.');

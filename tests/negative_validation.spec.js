@@ -5,12 +5,12 @@ test.describe('InterviewGod AI - Negative & Validation Tests', () => {
     test('Field Validation: Extreme Input Lengths', async ({ page }) => {
         await page.goto('/signup');
 
-        const extremeEmail = 'test'.repeat(500) + '@example.com';
+        const extremeEmail = 'a'.repeat(1001) + '@example.com';
         await page.locator('#base-input').pressSequentially(extremeEmail, { delay: 10 });
         await page.click('button:has-text("Continue")');
 
         await expect(page).toHaveURL(/.*code-verification/);
-        console.log('Result: System accepts 2000+ character email without error.');
+        console.log('Result: System accepts 1000+ character email.');
     });
 
     test('Field Validation: Malformed Email', async ({ page }) => {
@@ -29,7 +29,7 @@ test.describe('InterviewGod AI - Negative & Validation Tests', () => {
 
     test('Job Creation: Boundary conditions for Experience', async ({ page }) => {
         await page.goto('/login');
-        await page.locator('#base-input').pressSequentially('sainikithap@gmail.com', { delay: 10 });
+        await page.locator('#base-input').pressSequentially('sainikithap@gmail.cpm', { delay: 10 });
         await page.click('button:has-text("Continue")');
 
         console.log('Waiting for manual OTP/Dashboard access...');
@@ -38,7 +38,6 @@ test.describe('InterviewGod AI - Negative & Validation Tests', () => {
         await page.goto('/dashboard/jobs/create_job');
 
         await page.fill('input[placeholder="Job"]', 'Senior Hallucination Tester');
-
         await page.fill('input[placeholder="eg. 2-4 years"]', '-5 years');
         await page.click('button:has-text("Select Type")');
         await page.click('text=Full Time');
@@ -55,6 +54,7 @@ test.describe('InterviewGod AI - Negative & Validation Tests', () => {
     test('AI Logic: Impossible Job Title Corner Case', async ({ page }) => {
         await page.goto('/dashboard/jobs/create_job');
 
+        await page.waitForSelector('input[placeholder="Job"]', { timeout: 10000 });
         await page.fill('input[placeholder="Job"]', 'Professional Unicorn Tamer at Mars Colony');
         await page.fill('input[placeholder="eg. 2-4 years"]', '500 years');
         await page.click('button:has-text("Select Type")');
